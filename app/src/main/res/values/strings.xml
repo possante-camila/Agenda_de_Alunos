@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Agenda</string>
+    <string name="action_button_label">Adicionar Aluno</string>
+    <string name="title_activity_formulario_aluno">FormularioAlunoActivity</string>
+</resources>
