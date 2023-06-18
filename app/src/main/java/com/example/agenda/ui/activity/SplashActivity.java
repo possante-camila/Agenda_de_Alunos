@@ -6,7 +6,7 @@ import android.os.Handler;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.agenda.ui.activity.MainActivity;
+import com.example.agenda.ui.activity.Login;
 import com.example.agenda.R;
 
 public class SplashActivity extends AppCompatActivity {
@@ -21,7 +21,7 @@ public class SplashActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+                Intent intent = new Intent(SplashActivity.this, Login.class); // Redireciona para a tela de login
                 startActivity(intent);
                 finish(); // Finaliza a SplashActivity para que ela não seja retornada quando o usuário pressionar o botão de voltar
             }
