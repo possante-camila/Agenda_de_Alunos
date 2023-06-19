@@ -15,6 +15,13 @@ import com.example.agenda.DAO.AlunoDAO;
 import com.example.agenda.R;
 import com.example.agenda.ui.activity.model.Aluno;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.agenda.ui.activity.AlunoAdapter;
+
+
+
 public class FormularioAlunoActivity extends AppCompatActivity {
 
     private EditText campoNome;
@@ -23,11 +30,19 @@ public class FormularioAlunoActivity extends AppCompatActivity {
     private Aluno aluno;
     private AlunoDAO dao;
 
+    private RecyclerView recyclerView;
+    private AlunoAdapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTitle("Cadastrar");
         setContentView(R.layout.activity_formulario_aluno);
+
+        recyclerView = findViewById(R.id.list_view_alunos);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        adapter = new AlunoAdapter();
+        recyclerView.setAdapter(adapter);
 
         inicializacaoDosCampos();
 
@@ -60,6 +75,7 @@ public class FormularioAlunoActivity extends AppCompatActivity {
                 finish();
             }
         });
+
     }
 
     private void preencheCampos() {
@@ -67,6 +83,7 @@ public class FormularioAlunoActivity extends AppCompatActivity {
         campoTelefone.setText(aluno.getTelefone());
         campoEmail.setText(aluno.getEmail());
     }
+
 
     private void inicializacaoDosCampos() {
         campoNome = findViewById(R.id.activy_formulario_aluno_nome);

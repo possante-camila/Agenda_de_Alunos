@@ -29,29 +29,26 @@ public class AlunoDAO {
     }
 
     public void edita(Aluno aluno) {
-        Aluno alunoEncontrado = null;
-        for (Aluno a : alunos) {
+        for (int i = 0; i < alunos.size(); i++) {
+            Aluno a = alunos.get(i);
             if (a.getId() == aluno.getId()) {
-                alunoEncontrado = a;
+                alunos.set(i, aluno);
                 break;
             }
         }
-        if (alunoEncontrado != null) {
-            int posicaoDoAluno = alunos.indexOf(alunoEncontrado);
-            alunos.set(posicaoDoAluno, aluno);
-        }
     }
-
 
     public List<Aluno> todos() {
         return new ArrayList<>(alunos);
     }
 
     public void remove(Aluno aluno) {
-        int id = aluno.getId();
-        Aluno alunoDevolvido = buscaAlunoPeloId(id);
-        if (alunoDevolvido != null) {
-            alunos.remove(alunoDevolvido);
+        for (int i = 0; i < alunos.size(); i++) {
+            Aluno a = alunos.get(i);
+            if (a.getId() == aluno.getId()) {
+                alunos.remove(i);
+                break;
+            }
         }
     }
 
