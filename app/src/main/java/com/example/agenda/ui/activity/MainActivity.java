@@ -15,8 +15,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.agenda.DAO.AlunoDAO;
 import com.example.agenda.R;
+import com.example.agenda.Util.ConfiguraBd;
 import com.example.agenda.ui.activity.model.Aluno;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.List;
 
@@ -27,21 +29,25 @@ public class MainActivity extends AppCompatActivity {
     private ArrayAdapter<Aluno> adapter;
     private ListView listaDeAlunos;
 
+    private FirebaseAuth auth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        auth = ConfiguraBd.Firebaseautenticacao();
+
         dao = AlunoDAO.getInstance();
 
         dao.salva(new Aluno("Eduardo", "434354", "camila@gmail.com"));
 
-        Toast.makeText(this, "Developed by Camila Possante", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Bem vindo de volta!", Toast.LENGTH_SHORT).show();
 
         setTitle("Cadastro de Alunos");
 
         FloatingActionButton botaoNovoAluno = findViewById(R.id.floatingActionButton3);
-        botaoNovoAluno.setOnClickListener(new View.OnClickListener() {
+        botaoNovoAluno.setOnClickListener (new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, FormularioAlunoActivity.class));
@@ -115,5 +121,14 @@ public class MainActivity extends AppCompatActivity {
         adapter.clear();
         adapter.addAll(alunos);
         adapter.notifyDataSetChanged();
+    }
+
+    public void deslogar(View view){
+        try{
+            auth.signOut();
+            finish();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }

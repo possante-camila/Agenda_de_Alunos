@@ -28,4 +28,15 @@
         app:srcCompat="@drawable/ic_launcher_foreground"
         android:backgroundTint="@color/colorPrimary"/>
 
+    <Button
+        android:id="@+id/button_logout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:onClick="deslogar"
+        android:text="Sair" />
+
 </RelativeLayout>
