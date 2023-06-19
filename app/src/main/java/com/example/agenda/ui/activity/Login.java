@@ -37,27 +37,23 @@ public class Login extends AppCompatActivity {
         inicializarComponentes();
     }
 
-    public void validarAutentiacao(View view){
+    public void validarAutenticacao(){
         String email = campoEmail.getText().toString();
         String senha = campoSenha.getText().toString();
 
         if (!email.isEmpty()) {
             if (!senha.isEmpty()) {
-
                 Usuario usuario = new Usuario();
-
                 usuario.setEmail(email);
                 usuario.setSenha(senha);
-
                 logar(usuario);
-
             } else {
                 Toast.makeText(this, "Preencha a senha", Toast.LENGTH_SHORT).show();
             }
-
         } else {
             Toast.makeText(this, "Preencha o email", Toast.LENGTH_SHORT).show();
         }
+
     }
 
     private void logar(Usuario usuario) {
@@ -100,12 +96,12 @@ public class Login extends AppCompatActivity {
 
     }
 
-    public void login(View v){
-        Intent i = new Intent(this, MainActivity.class);
-        startActivity(i);
+    public void login(View v) {
+        validarAutenticacao();
     }
 
-@Override
+
+    @Override
     protected void onStart(){
         super.onStart();
     FirebaseUser usuarioAuth = auth.getCurrentUser();
