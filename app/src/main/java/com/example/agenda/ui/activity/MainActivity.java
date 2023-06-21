@@ -17,6 +17,7 @@ import com.example.agenda.DAO.AlunoDAO;
 import com.example.agenda.R;
 import com.example.agenda.Util.ConfiguraBd;
 import com.example.agenda.ui.activity.AlunoAdapter;
+import com.example.agenda.ui.activity.FormularioAlunoActivity;
 
 import com.example.agenda.ui.activity.model.Aluno;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -54,12 +55,11 @@ public class MainActivity extends AppCompatActivity {
         setTitle("Cadastro de Alunos");
 
         FloatingActionButton botaoNovoAluno = findViewById(R.id.floatingActionButton3);
-        botaoNovoAluno.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, FormularioAlunoActivity.class));
-            }
+        botaoNovoAluno.setOnClickListener(v -> {
+            startActivity(new Intent(MainActivity.this, FormularioAlunoActivity.class));
         });
+
+
 
         registerForContextMenu(recyclerView);
     }
@@ -110,5 +110,10 @@ public class MainActivity extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void abrirFormularioAluno() {
+        Intent intent = new Intent(MainActivity.this, FormularioAlunoActivity.class);
+        startActivity(intent);
     }
 }

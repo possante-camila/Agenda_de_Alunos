@@ -39,10 +39,10 @@ public class FormularioAlunoActivity extends AppCompatActivity {
         setTitle("Cadastrar");
         setContentView(R.layout.activity_formulario_aluno);
 
-        recyclerView = findViewById(R.id.list_view_alunos);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        // recyclerView = findViewById(R.id.list_view_alunos);
+        // recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new AlunoAdapter();
-        recyclerView.setAdapter(adapter);
+        // recyclerView.setAdapter(adapter);
 
         inicializacaoDosCampos();
 
