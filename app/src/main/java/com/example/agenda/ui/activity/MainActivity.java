@@ -22,6 +22,17 @@ import com.example.agenda.ui.activity.FormularioAlunoActivity;
 import com.example.agenda.ui.activity.model.Aluno;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
+import com.example.agenda.DAO.PreferencesManager;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.util.Log;
 
 import java.util.List;
 
@@ -34,10 +45,16 @@ public class MainActivity extends AppCompatActivity {
 
     private FirebaseAuth auth;
 
+    private PreferencesManager preferencesManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        preferencesManager = new PreferencesManager(this);
+
+
 
         recyclerView = findViewById(R.id.list_view_alunos);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -104,13 +121,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void deslogar(View view) {
+        preferencesManager = new PreferencesManager(this);
         try {
             auth.signOut();
+            preferencesManager.exit();
             finish();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
 
     private void abrirFormularioAluno() {
         Intent intent = new Intent(MainActivity.this, FormularioAlunoActivity.class);

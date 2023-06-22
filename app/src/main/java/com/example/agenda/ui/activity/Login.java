@@ -5,11 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.agenda.DAO.PreferencesManager;
 import com.example.agenda.R;
 import com.example.agenda.Util.ConfiguraBd;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -29,6 +31,8 @@ public class Login extends AppCompatActivity {
     Button botaoAcessar;
     private FirebaseAuth auth;
 
+    private PreferencesManager preferencesManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,12 +44,15 @@ public class Login extends AppCompatActivity {
     public void validarAutenticacao(){
         String email = campoEmail.getText().toString();
         String senha = campoSenha.getText().toString();
+        preferencesManager = new PreferencesManager(this);
 
         if (!email.isEmpty()) {
             if (!senha.isEmpty()) {
                 Usuario usuario = new Usuario();
                 usuario.setEmail(email);
                 usuario.setSenha(senha);
+                preferencesManager.setEmail(email);
+                preferencesManager.setPassword(senha);
                 logar(usuario);
             } else {
                 Toast.makeText(this, "Preencha a senha", Toast.LENGTH_SHORT).show();
@@ -57,36 +64,82 @@ public class Login extends AppCompatActivity {
     }
 
     private void logar(Usuario usuario) {
-        auth.signInWithEmailAndPassword(
-                usuario.getEmail(), usuario.getSenha()
+        preferencesManager = new PreferencesManager(this);
+        Log.d("LOGGED", String.valueOf(preferencesManager.getLogged()));
 
-        ).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
+        if (preferencesManager.getLogged()==false) {
 
-                if (task.isSuccessful()) {
-                    // Se der certo o  login ele vai la pra tela principal
-                    abrirHome();
+            auth.signInWithEmailAndPassword(
+                    usuario.getEmail(), usuario.getSenha()
 
-                    Toast.makeText(Login.this, "Login bem-sucedido", Toast.LENGTH_SHORT).show();
-                } else {
-                    // Se falhar o login
-                    String excecao ="";
-                    try {
-                        throw task.getException();
-                    } catch (FirebaseAuthInvalidUserException e){
-                        excecao = "Usuario nao cadastrado, contate o administrador";
-                    } catch (FirebaseAuthInvalidCredentialsException e){
-                        excecao = "Email ou senha incorretos";
-                    } catch  (Exception e){
-                        excecao = "Erro ao logar, contate o suporte" + e.getMessage();
-                                e.printStackTrace();
+
+            ).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+
+                    if (task.isSuccessful()) {
+                        // Se der certo o  login ele vai la pra tela principal
+                        preferencesManager.setLogged(true);
+                        abrirHome();
+                        Log.d("LOGGED", String.valueOf(preferencesManager.getLogged()));
+                        Toast.makeText(Login.this, "Login bem-sucedido", Toast.LENGTH_SHORT).show();
+                    } else {
+                        // Se falhar o login
+                        String excecao = "";
+                        try {
+                            throw task.getException();
+                        } catch (FirebaseAuthInvalidUserException e) {
+                            excecao = "Usuario nao cadastrado, contate o administrador";
+                        } catch (FirebaseAuthInvalidCredentialsException e) {
+                            excecao = "Email ou senha incorretos";
+                        } catch (Exception e) {
+                            excecao = "Erro ao logar, contate o suporte" + e.getMessage();
+                            e.printStackTrace();
+                        }
+
+                        Toast.makeText(Login.this, excecao, Toast.LENGTH_SHORT).show();
                     }
-
-                    Toast.makeText(Login.this, excecao, Toast.LENGTH_SHORT).show();
                 }
-            }
-        });
+            });
+
+
+        } else {
+            auth.signInWithEmailAndPassword(
+                    preferencesManager.getEmail(), preferencesManager.getPassword()
+
+
+            ).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+
+                    if (task.isSuccessful()) {
+                        // Se der certo o  login ele vai la pra tela principal
+                        abrirHome();
+                        preferencesManager.setLogged(true);
+                        Log.d("LOGGED", String.valueOf(preferencesManager.getLogged()));
+                        Toast.makeText(Login.this, "Login bem-sucedido", Toast.LENGTH_SHORT).show();
+                    } else {
+                        // Se falhar o login
+                        String excecao = "";
+                        try {
+                            throw task.getException();
+                        } catch (FirebaseAuthInvalidUserException e) {
+                            excecao = "Usuario nao cadastrado, contate o administrador";
+                        } catch (FirebaseAuthInvalidCredentialsException e) {
+                            excecao = "Email ou senha incorretos";
+                        } catch (Exception e) {
+                            excecao = "Erro ao logar, contate o suporte" + e.getMessage();
+                            e.printStackTrace();
+                        }
+
+                        Toast.makeText(Login.this, excecao, Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+
+
+        }
+
     }
 
     private void abrirHome() {
