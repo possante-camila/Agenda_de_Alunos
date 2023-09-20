@@ -47,3 +47,54 @@ Camila Possan de Oliveira<br>
 Para acessar o aplicativo, utilize as seguintes informações de login:<br>
 Email: camila@testes.com<br>
 Senha: 123456<br>
+
+
+# Project Name:
+Student Agenda for Educational Institutions
+
+# Description:
+This project is the final assignment for the Mobile Computing course. It is a student agenda designed for educational institutions. The application includes features such as shared preferences for storing user email and password, a splash screen, Firebase authentication, and it utilizes the RecyclerView component.
+
+# Functionality:
+User Authentication with Firebase: Users can log in and authenticate using Firebase Authentication.<br>
+Shared Preferences Storage: The application uses Shared Preferences to store the user's email and password, allowing for persistent login.<br>
+Splash Screen: When the application starts, a splash screen is displayed, providing a visually pleasing experience during the initial loading.<br>
+List of Students: The application displays a list of students, allowing users to view their basic information, such as name, photo, and contact details.<br>
+Recycler View: The list of students is implemented using the RecyclerView component, providing an efficient and responsive display of data.<br>
+
+# Requirements:
+Mobile device running Android 7.0 (Nougat) or higher<br>
+Internet connection for authentication and data synchronization with Firebase<br>
+
+# Installation:
+Download the APK file from the following link: [Download APK](https://github.com/possante-camila/Agenda_de_Alunos.git)<br>
+Transfer the APK file to your Android mobile device.<br>
+On the mobile device, open the APK file and follow the installation instructions.<br>
+After the installation is complete, the application will be available on the device's home screen.<br>
+
+# Project Setup (Developers):
+If you wish to make modifications or contribute to the project's development, follow the instructions below:<br>
+Open Android Studio and select "Check out project from Version Control" on the initial screen.<br>
+Select the "Git" option and enter the Git repository URL.<br>
+Choose the destination directory for the project and click "Clone".<br>
+Wait for Android Studio to finish cloning the repository.<br>
+Once the project is open, wait for Android Studio to download the necessary dependencies.<br>
+After the dependencies are downloaded, the project will be ready for modification or execution on the emulator/physical device.<br>
+
+# Contribution:
+Contributions to the improvement of this project are welcome. If you want to contribute, follow these steps:<br>
+
+Fork the repository.<br>
+Create a new branch for your feature or bug fix: git checkout -b my-feature<br>
+Make desired code changes.<br>
+Commit your changes: git commit -m 'Implementation of my feature'<br>
+Push to the branch: git push origin my-feature<br>
+Open a Pull Request in the original repository.<br>
+
+# Author:
+Camila Possan de Oliveira<br>
+
+# Login Credentials:
+To access the application, use the following login information:<br>
+Email: camila@testes.com<br>
+Password: 123456<br>
